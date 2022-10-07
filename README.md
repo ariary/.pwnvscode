@@ -1,5 +1,5 @@
 <div align=center>
-<h1>😈 .vscode 📁</h1>
+  <h1>😈 <code>.pwnvscode</code> 📁</h1>
 
 <strong> Automatically perform RCE when open it with `vscode` </strong>
 </div>
