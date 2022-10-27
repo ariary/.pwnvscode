@@ -1,7 +1,7 @@
 <div align=center>
   <h1>😈 <code>.pwnvscode</code> 📁</h1>
 
-<strong> Automatically perform RCE when open it with `vscode` </strong>
+<strong> Automatically perform RCE when opened with `vscode` </strong>
 </div>
 
 ## How to use it?
