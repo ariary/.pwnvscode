@@ -29,7 +29,7 @@ CYAN='\033[1;96m'
 
 
 ## Help part
-if [[ "$HELP" ]];
+if [[ "$HELP" ||  $# -eq 0  ]];
 then
     echo -e "Usage: ${GREEN}$0${NC} [flag] ${GREEN}'${NC}[payload]${GREEN}'${NC} "
     echo -e "\t--windows/-w\tspecify specific payload for windows"
